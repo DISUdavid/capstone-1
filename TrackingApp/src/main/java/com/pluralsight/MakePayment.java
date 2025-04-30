@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MakePayment {
 
-    private static void makePayment(Scanner scanner){
+    public void makePayment(Scanner scanner){
 
         System.out.println("Enter payment details: ");
         //Get current date and time

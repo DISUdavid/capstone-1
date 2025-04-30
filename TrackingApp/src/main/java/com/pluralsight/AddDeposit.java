@@ -8,9 +8,7 @@ import java.util.Scanner;
 
 public class AddDeposit {
 
-
-
-    private static void addDeposit(Scanner scanner) {
+    public void addDeposit(Scanner scanner) {
         //Add scanner into the parameters of addDeposit method so that it uses the same-(cont.)-
         //Scanner object created in the main program
         //Reads user's input efficiently without calling scanner each time
