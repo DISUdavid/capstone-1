@@ -1,13 +1,19 @@
 package com.pluralsight;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TrackingApp {
 
+    static ArrayList<LedgerEntry> ledger = new ArrayList<>();
+    static String ledgerPath = "src/main/resources/transactions.csv";
+
+
     public static void main(String[] args) {
 
         //Create a home screen that takes user input
+        ledger = readLedgerFromCsv(ledgerPath);
 
         System.out.println("Welcome to TrackingApp Home Screen!");
 
@@ -47,5 +53,9 @@ public class TrackingApp {
             scanner.close();
 
         }
+    }
+
+    private static ArrayList<LedgerEntry> readLedgerFromCsv(String ledgerPath) {
+        return null;
     }
 }
