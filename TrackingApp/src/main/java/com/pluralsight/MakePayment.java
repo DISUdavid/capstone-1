@@ -28,13 +28,15 @@ public class MakePayment {
         System.out.println("Description: ");
         String description = scanner.nextLine();
 
+        System.out.println("Vendor: ");
+        String vendor = scanner.nextLine();
+
         //Prompt users for the amount and ensure it's a valid number
         System.out.println("Amount: ");
         double amount = Double.parseDouble(scanner.nextLine());
 
         //Ensure amounts as a negative value for payments
-        String paymentRecord = formattedDateTime + "," + description + "," + (-amount) + "\n";
-
+        String paymentRecord = formattedDateTime + "|" + description + "|" + vendor + "|" +(-amount) + "\n";
         String filepath = "capstone-1/TrackingApp/src/main/resources/transactions.csv/";
 
         try (FileWriter writer = new FileWriter(filepath, true)) {

@@ -56,6 +56,8 @@ public class TrackingApp {
     }
 
     private static ArrayList<LedgerEntry> readLedgerFromCsv(String ledgerPath) {
-        return null;
+        ArrayList<LedgerEntry> ledgerEntries = new ArrayList<>();
+
+        return ledgerEntries;
     }
 }
