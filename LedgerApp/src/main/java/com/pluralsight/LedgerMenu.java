@@ -61,12 +61,6 @@ public class LedgerMenu { //fixme: ledger not displaying
 
         System.out.println("\nYear-To-Date Entries:");
 
-        ledgerEntries.stream()
-                .filter(entry -> {
-                    LocalDate entryDate = LocalDate.parse(entry.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    return entryDate.isAfter(firstDayOfYear.minusDays(1)) && entryDate.isBefore(today.plusDays(1));
-                })
-                .forEach(System.out::println);
     }
 
     public static void displayPreviousYearEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work, tried to be advanced and failed
@@ -76,18 +70,11 @@ public class LedgerMenu { //fixme: ledger not displaying
 
         System.out.println("\nPrevious Year Entries:");
 
-        ledgerEntries.stream()
-                .filter(entry -> {
-                    LocalDate entryDate = LocalDate.parse(entry.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    return entryDate.isAfter(firstDayOfPreviousYear.minusDays(1)) && entryDate.isBefore(lastDayOfPreviousYear.plusDays(1));
-                })
-                .forEach(System.out::println);
+
     }
 
     public static void searchByVendor(ArrayList<LedgerEntry> ledgerEntries, String vendorName) {// fixme: partially works, tried to be advanced and failed
-        ledgerEntries.stream()
-                .filter(entry -> entry.getVendor().equalsIgnoreCase(vendorName))
-                .forEach(System.out::println);
+
     }
 
     public void displayLedgerMenu(Scanner scanner) {
