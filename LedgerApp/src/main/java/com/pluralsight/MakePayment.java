@@ -13,7 +13,7 @@ public class MakePayment {
         //Get current date and time
         LocalDateTime now = LocalDateTime.now();
         //Define formatter
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
         //Format the current date and time
         String formattedDateTime = now.format(formatter);
 

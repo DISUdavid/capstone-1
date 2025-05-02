@@ -47,7 +47,7 @@ public class Main {
                     // break;
                 } else if (userInput.equalsIgnoreCase("L")) {
                     System.out.println("Would like to display Ledger Screen?");
-                    ledgerMenu.displayLedgerMenu();
+                    ledgerMenu.displayLedgerMenu(scanner);
                     // break;
                 } else if (userInput.equalsIgnoreCase("X")) {
                     running = false;
@@ -87,5 +87,6 @@ public class Main {
             }
 
             return ledgerEntries;
+
         }
 }

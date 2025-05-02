@@ -13,6 +13,7 @@ public class AddDeposit {
         //Scanner object created in the main program
         //Reads user's input efficiently without calling scanner each time
         System.out.println("Enter deposit details: ");
+
         //Get current date and time
         LocalDateTime now = LocalDateTime.now();
         //Define formatter
@@ -20,11 +21,10 @@ public class AddDeposit {
         //Format the current date and time
         String formattedDateTime = now.format(formatter);
 
-
         //With our formatter established we can now start taking in date and time down to the second
-        System.out.println("Date: " );
-        String currentDate = scanner.next();
-        currentDate = formattedDateTime;
+        //        System.out.println("Date: " );
+        //        String currentDate = scanner.nextLine();
+        //        String currentDate = formattedDateTime;
 
         //Prompt users for their description
         System.out.println("Description: ");
@@ -39,7 +39,7 @@ public class AddDeposit {
 
         String depositRecord = formattedDateTime + "|" + description + "|" + vendor + "|" + amount + "\n";
 
-        String filepath = "capstone-1/TrackingApp/src/main/resources/transactions.csv/";
+        String filepath = "src/main/resources/transactions.csv";
 
         try (FileWriter writer = new FileWriter(filepath, true)) {
             writer.append(depositRecord);
@@ -48,12 +48,6 @@ public class AddDeposit {
             System.out.println("Error saving deposit: " + e.getMessage());
         }
 
-
-
-
-
-
     }
-
 
 }

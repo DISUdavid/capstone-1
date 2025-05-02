@@ -1,8 +1,8 @@
 package com.pluralsight;
 
 public class LedgerEntry {
-    private String currentDate;
-    private String currentTime;
+    private String date;
+    private String time;
     private String vendor;
     private String description;
     private double amount;
@@ -11,20 +11,20 @@ public class LedgerEntry {
 
     }
 
-    public LedgerEntry(String currentDate, String currentTime, String vendor, String description, double amount){
-        this.currentDate = currentDate;
-        this.currentTime = currentTime;
+    public LedgerEntry(String date, String time, String vendor, String description, double amount){
+        this.date = date;
+        this.time = time;
         this.vendor = vendor;
         this.description = description;
         this.amount = amount;
     }
 
-    public String getCurrentDate() {
-        return currentDate;
+    public String getDate() {
+        return date;
     }
 
-    public String getCurrentTime() {
-        return currentTime;
+    public String getTime() {
+        return time;
     }
 
     public String getDescription() {

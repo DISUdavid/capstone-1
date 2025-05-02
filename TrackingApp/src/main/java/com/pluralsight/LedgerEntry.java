@@ -1,7 +1,6 @@
 package com.pluralsight;
 
 public class LedgerEntry {
-
     private String currentDate;
     private String currentTime;
     private String vendor;
@@ -35,8 +34,8 @@ public class LedgerEntry {
     public double getAmount() {
         return amount;
     }
+
     public String getVendor() {
         return vendor;
     }
-
 }

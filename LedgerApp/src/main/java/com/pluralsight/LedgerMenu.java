@@ -1,44 +1,166 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LedgerMenu {
-    public LedgerMenu() {}
+
+public class LedgerMenu { //fixme: ledger not displaying
+    public static ArrayList<LedgerEntry> ledgerEntries;
+
+    public LedgerMenu() {// fixme: suspect the issue is somewhere between 9-14
+        ledgerEntries = Main.readLedgerFromCsv("src/main/resources/transactions.csv");
+    }
+
+    public static void displayAllEntries(ArrayList<LedgerEntry> ledgerEntries) {
+        for (LedgerEntry ledgerEntry: ledgerEntries) {
+            // todo : add other fields from ledgerEntry
+            System.out.println(ledgerEntry.getDate() + " " + ledgerEntry.getTime());
+        }
+    }
+
+    public static void displayDeposits(ArrayList<LedgerEntry> ledgerEntries) {
+        for (LedgerEntry l: ledgerEntries) {
+            if (l.getAmount() > 0) {
+                System.out.println(l.getDate() + " " + l.getTime());
+            }
+
+        }
+    }
+
+    public static void displayPayments(ArrayList<LedgerEntry> ledgerEntries) {
+        for(LedgerEntry l: ledgerEntries) {
+            if (l.getAmount() <0) {
+                System.out.println(l.getDate() + " " + l.getTime());
+            }
+        }
+    }
+
+    public static void displayMonthToDateEntries(ArrayList<LedgerEntry> ledgerEntries) {
+        for (LedgerEntry l: ledgerEntries) {
+            LocalDate month = LocalDate.parse(l.getDate(), DateTimeFormatter.ofPattern("MM"));
+            System.out.println(month);
+
+        }
+    }
+
+
+    public static void displayPreviousMonthEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work
+        for (LedgerEntry l: ledgerEntries) {
+            for (int i = 0; i <= 12; i--) {
+                LocalDate previousMonth = LocalDate.parse(l.getDate());
+                System.out.println("\nPrevious Month Entries: " + previousMonth);
+            }
+        }
+    }
+
+    public static void displayYearToDateEntries(ArrayList<LedgerEntry> ledgerEntries) {//todo: does not work
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfYear = today.withDayOfYear(1); // January 1st of the current year
+
+        System.out.println("\nYear-To-Date Entries:");
+
+        ledgerEntries.stream()
+                .filter(entry -> {
+                    LocalDate entryDate = LocalDate.parse(entry.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    return entryDate.isAfter(firstDayOfYear.minusDays(1)) && entryDate.isBefore(today.plusDays(1));
+                })
+                .forEach(System.out::println);
+    }
+
+    public static void displayPreviousYearEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfPreviousYear = today.minusYears(1).withDayOfYear(1);
+        LocalDate lastDayOfPreviousYear = today.minusYears(1).withDayOfYear(today.minusYears(1).lengthOfYear());
+
+        System.out.println("\nPrevious Year Entries:");
+
+        ledgerEntries.stream()
+                .filter(entry -> {
+                    LocalDate entryDate = LocalDate.parse(entry.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    return entryDate.isAfter(firstDayOfPreviousYear.minusDays(1)) && entryDate.isBefore(lastDayOfPreviousYear.plusDays(1));
+                })
+                .forEach(System.out::println);
+    }
+
+    public static void searchByVendor(ArrayList<LedgerEntry> ledgerEntries, String vendorName) {
+        ledgerEntries.stream()
+                .filter(entry -> entry.getVendor().equalsIgnoreCase(vendorName))
+                .forEach(System.out::println);
+    }
 
     public void displayLedgerMenu(Scanner scanner) {
         boolean running = true;
         String userInput;
 
-        // Create identifiers and options for the home screen
         while (running) {
-            System.out.println("D - Add Deposit");
-            System.out.println("P - Make Payment");
-            System.out.println("L - Display Ledger");
-            System.out.println("X - Exit Application");
-            System.out.print("Select your option: ");
-            userInput = scanner.nextLine();
+            System.out.println("\nLedger Menu:");
+            System.out.println("A - Display All Entries");
+            System.out.println("D - Display Deposits Only");
+            System.out.println("P - Display Payments Only");
+            System.out.println("R - Reports");
+            System.out.println("H - Home");
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine();
 
-            //Create loop that'll prompt users input
-//            AddDeposit addDeposit = new AddDeposit();
-//            MakePayment makePayment = new MakePayment();
-
-            if (userInput.equalsIgnoreCase("D")) {
-                System.out.println("Would you like add deposit information?");
-                addDeposit.addDeposit(scanner);
-                // break;
-            } else if (userInput.equalsIgnoreCase("P")) {
-                System.out.println("Would you like to make a payment through use of debit?");
-                makePayment.makePayment(scanner);
-                // break;
-            } else if (userInput.equalsIgnoreCase("L")) {
-                System.out.println("Would like to display Ledger Screen?");
-                // break;
-            } else if (userInput.equalsIgnoreCase("X")) {
-                running = false;
-                System.out.println("Goodbye User!");
-                // break;
-            } else {
-                System.out.println("Invalid input. Try Again");
+            switch (choice.toUpperCase()) {
+                case "A":
+                    displayAllEntries(ledgerEntries);
+                    break;
+                case "D":
+                    displayDeposits(ledgerEntries);
+                    break;
+                case "P":
+                    displayPayments(ledgerEntries);
+                    break;
+                case "R":
+                    showReportsMenu(scanner, ledgerEntries);
+                    break;
+                case "H":
+                    running = false; // Exit ledger menu
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
             }
+        }
+    }
+
+    public static void showReportsMenu(Scanner scanner, ArrayList<LedgerEntry> ledgerEntries) {
+        System.out.println("\nReports Menu:");
+        System.out.println("1 - Month To Date");
+        System.out.println("2 - Previous Month");
+        System.out.println("3 - Year To Date");
+        System.out.println("4 - Previous Year");
+        System.out.println("5 - Search by Vendor");
+        System.out.println("0 - Back");
+
+        System.out.print("Enter your choice: ");
+        String choice = scanner.nextLine();
+
+        switch (choice) {
+            case "1":
+                displayMonthToDateEntries(ledgerEntries);
+                break;
+            case "2":
+                displayPreviousMonthEntries(ledgerEntries);
+                break;
+            case "3":
+                displayYearToDateEntries(ledgerEntries);
+                break;
+            case "4":
+                displayPreviousYearEntries(ledgerEntries);
+                break;
+            case "5":
+                System.out.print("Enter vendor name: ");
+                String vendor = scanner.nextLine();
+                searchByVendor(ledgerEntries, vendor);
+                break;
+            case "0":
+                return; // Go back to ledger menu
+            default:
+                System.out.println("Invalid report option. Please enter a valid choice.");
+        }
+
     }
 }

@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class MakePayment {
 
     public void makePayment(Scanner scanner){
-
         System.out.println("Enter payment details: ");
         //Get current date and time
         LocalDateTime now = LocalDateTime.now();
@@ -18,10 +17,9 @@ public class MakePayment {
         //Format the current date and time
         String formattedDateTime = now.format(formatter);
 
-
         //With our formatter established we can now start taking in date and time down to the second
         System.out.println("Date: " );
-        String currentDate = scanner.next();
+        String currentDate = scanner.nextLine();
         currentDate = formattedDateTime;
 
         //Prompt users for their description
@@ -37,7 +35,7 @@ public class MakePayment {
 
         //Ensure amounts as a negative value for payments
         String paymentRecord = formattedDateTime + "|" + description + "|" + vendor + "|" +(-amount) + "\n";
-        String filepath = "capstone-1/TrackingApp/src/main/resources/transactions.csv/";
+        String filepath = "src/main/resources/transactions.csv/";
 
         try (FileWriter writer = new FileWriter(filepath, true)) {
             writer.append(paymentRecord);
@@ -45,9 +43,6 @@ public class MakePayment {
         } catch (IOException e) {
             System.out.println("Error saving deposit: " + e.getMessage());
         }
-
-
-
 
     }
 }
