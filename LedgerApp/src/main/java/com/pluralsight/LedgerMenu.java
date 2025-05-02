@@ -16,7 +16,7 @@ public class LedgerMenu { //fixme: ledger not displaying
     public static void displayAllEntries(ArrayList<LedgerEntry> ledgerEntries) {
         for (LedgerEntry ledgerEntry: ledgerEntries) {
             // todo : add other fields from ledgerEntry
-            System.out.println(ledgerEntry.getDate() + " " + ledgerEntry.getTime());
+            System.out.println(ledgerEntry.getDate() + " " + ledgerEntry.getTime() + " "+ ledgerEntry.getDescription()+ " "+ ledgerEntry.getVendor() + " " + ledgerEntry.getAmount());
         }
     }
 
@@ -46,7 +46,7 @@ public class LedgerMenu { //fixme: ledger not displaying
     }
 
 
-    public static void displayPreviousMonthEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work
+    public static void displayPreviousMonthEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work, tried to be advanced and failed
         for (LedgerEntry l: ledgerEntries) {
             for (int i = 0; i <= 12; i--) {
                 LocalDate previousMonth = LocalDate.parse(l.getDate());
@@ -55,7 +55,7 @@ public class LedgerMenu { //fixme: ledger not displaying
         }
     }
 
-    public static void displayYearToDateEntries(ArrayList<LedgerEntry> ledgerEntries) {//todo: does not work
+    public static void displayYearToDateEntries(ArrayList<LedgerEntry> ledgerEntries) {//todo: does not work, tried to be advanced and failed
         LocalDate today = LocalDate.now();
         LocalDate firstDayOfYear = today.withDayOfYear(1); // January 1st of the current year
 
@@ -69,7 +69,7 @@ public class LedgerMenu { //fixme: ledger not displaying
                 .forEach(System.out::println);
     }
 
-    public static void displayPreviousYearEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work
+    public static void displayPreviousYearEntries(ArrayList<LedgerEntry> ledgerEntries) {// todo: does not work, tried to be advanced and failed
         LocalDate today = LocalDate.now();
         LocalDate firstDayOfPreviousYear = today.minusYears(1).withDayOfYear(1);
         LocalDate lastDayOfPreviousYear = today.minusYears(1).withDayOfYear(today.minusYears(1).lengthOfYear());
@@ -84,7 +84,7 @@ public class LedgerMenu { //fixme: ledger not displaying
                 .forEach(System.out::println);
     }
 
-    public static void searchByVendor(ArrayList<LedgerEntry> ledgerEntries, String vendorName) {
+    public static void searchByVendor(ArrayList<LedgerEntry> ledgerEntries, String vendorName) {// fixme: partially works, tried to be advanced and failed
         ledgerEntries.stream()
                 .filter(entry -> entry.getVendor().equalsIgnoreCase(vendorName))
                 .forEach(System.out::println);
